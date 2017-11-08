@@ -87,13 +87,24 @@ rt_task_wait_period();
 
 
 void actuator_pendule2(long arg){
-
+float commande;
+int co=0;
 while(1){
 //float angle=valueToVoltagePolar(5, angle_pendule2);
 
-float commande=valueToVoltagePolar(10, commande_pendule2);
+commande=valueToVoltagePolar(10, commande_pendule2);
 //printk("Commande = %dmv\n", (int)(commande*1000.0));
-SetDAVol(0,2.2*commande);
+commande=2.2*commande;
+printk("Hello");
+co=(int)(commande*10.0);
+printk("Hello2");
+if(co>98){
+            commande=9.8;
+}
+else if(co<-98){
+    commande=-9.8;
+}
+SetDAVol(0,commande);
 /*SetDA(0,commande_pendule2);
 printk("Commande_Value=%d\n",commande_pendule2);*/
 

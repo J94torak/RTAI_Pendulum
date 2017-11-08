@@ -84,12 +84,24 @@ envoie[1] = position_pendule1;
 }
 
 void actuator_pendule1(long arg){
-RTIME nowp;
+float commande;
+int co=0;
 while(1){
 
-float commande=valueToVoltagePolar(10, (int)commande_pendule1);
+commande=valueToVoltagePolar(10, (int)commande_pendule1);
 //printk("Commande = %dmv\n", (int)(commande*1000.0));
-SetDAVol(0,0.75*commande);
+
+commande=0.75*commande;
+printk("Hello");
+co=(int)(commande*10.0);
+printk("Hello2");
+if(co>98){
+            commande=9.8;
+}
+else if(co<-98){
+    commande=-9.8;
+}
+SetDAVol(0,commande);
 /*SetDA(0,commande_pendule1);
 printk("Commande_Value=%d\n",commande_pendule1);*/
 rt_task_suspend (&actuator);

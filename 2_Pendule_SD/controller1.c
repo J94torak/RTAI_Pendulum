@@ -53,18 +53,12 @@ float commande1(float angle, float position){
 	x3k=x3;
 	x4k=x4;
 
-	x1 = +0.6300*x1k +0.0261*x2k -0.0012*x3k +0.0082*x4k + 0.2703*angle - 0.0271*position;
-	x2 = +0.0355*x1k +0.7967*x2k +0.0110*x3k +0.0015*x4k - 0.0303*angle + 0.2041*position;
-	x3 = +1.2632*x1k -0.5989*x2k +1.1944*x3k +0.3042*x4k - 0.2209*angle + 0.7570*position;
-	x4 = -2.6117*x1k -0.0831*x2k -0.2302*x3k +0.6403*x4k + 1.4933*angle - 0.1040*position;
-
-	/*x1=0.7143*x1k+0.0245*x2k-0.0008*x3k+0.0086*x4k+0.2815*angle-0.0251*position;
-	x2=0.0239*x1k+0.8609*x2k+0.0107*x3k+0.0012*x4k-0.0199*angle+0.1396*position;
-	x3=0.9140*x1k-0.3043*x2k+1.1306*x3k+0.2351*x4k-0.1149*angle+0.4000*position;
-	x4=-2.4476*x1k+0.0016*x2k-0.1546*x3k+0.7222*x4k+1.6173*angle-0.1150*position;*/
+x1 =0.7143*x1k+0.0245*x2k-0.0007*x3k+0.0086*x4k+0.2815*angle-0.0250*position;
+x2 =0.0239*x1k+0.8608*x2k+0.01065*x3k+0.0012*x4k-0.01993*angle+0.1396*position;
+x3 =0.9139*x1k-0.3042*x2k+1.1306*x3k+0.2351*x4k-0.11488*angle+0.4000*position;
+x4 =-2.4475*x1k-0.0016*x2k-0.1546*x3k+0.72218*x4k+1.6173*angle-0.1150*position;
 	
-	//commande= (-80.3092*x1-9.6237*x2-14.1215*x3-23.6260*x4);
-	commande= (-104.7570*x1 -15.8810*x2 -20.5358*x3 -30.5773*x4);	
+	commande= (-80.3092*x1-9.6237*x2-14.1215*x3-23.6260*x4);
 
     printk("Angle=%d\n",(int)(angle*1000.0));
     printk("Position=%d\n",(int)(position*1000.0));
