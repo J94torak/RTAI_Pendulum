@@ -5,12 +5,12 @@
 #include<linux/module.h>
 #include<linux/init.h>
 
-#define POSITION0 8.20
-#define POSITION90 -8.59
+#define POSITION0 8.84
+#define POSITION90 -7.95
 #define ORIGIN 0.114
-#define ANGLE_15 -3.76
-#define ANGLE15 4.024
-#define ANGLE0 -0.131
+#define ANGLE_15 -3.58
+#define ANGLE15 3.58
+#define ANGLE0 0.0
 #define ANGLE_WIDTH 30.0
 #define POSITION_WIDTH 90.5
 void   init_control(float pposition0,float pposition90,float porigin, float pangle_15, float pangle15, float pangle0);

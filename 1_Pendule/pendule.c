@@ -33,8 +33,11 @@ static RT_TASK tache_pendule;
 void pendule(long arg){
 
 float commande=0;
+float commande2=0;
 float angleV=0;
 float positionV=0;
+int co=0;
+
 	
 	while(1){
 		
@@ -43,8 +46,18 @@ float positionV=0;
 		printk("positionV=%dmv\n",(int)(positionV*1000.0)); 
 		printk("angleV=%dmv\n",(int)(angleV*1000.0)); 
 		commande  = commandeVoltage(angleV,positionV);
-		printk("Commande = %dmv\n", (int)(commande*1000.0));
-		SetDAVol(0, 0.75*commande);       //arcom22 2.5*commande);//arcom12 0.75*commande);//arcom21 4*commande);
+        commande=4.0*commande;
+        printk("Hello");
+        co=(int)(commande*1000.0);
+        printk("Hello2");
+        if(co>9950){
+            commande=9.95;
+        }
+        else if(co<-9950){
+            commande=-9.95;
+        }
+		//printk("Commande = %dmv\n", (int)(commande*1000.0));
+		SetDAVol(0, commande);       //arcom22 2.5*commande);//arcom12 0.75*commande);//arcom21 4*commande);
 		rt_task_wait_period();
 		
 	}
