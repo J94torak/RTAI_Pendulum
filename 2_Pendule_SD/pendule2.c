@@ -53,7 +53,7 @@ RTIME now;
 void control_pendule1(long arg){
 u16 commande_pendule1l=0;
 while(1){
-commande_pendule1=(u16) VoltageToValue(commandeVoltage1(valueToVoltagePolar(5, angle_pendule1),valueToVoltagePolar(10,position_pendule1)));
+commande_pendule1=(u16) VoltageToValue(commandeVoltage1(valueToVoltagePolar(5, (int)angle_pendule1),valueToVoltagePolar(10,(int)position_pendule1)));
 commande_pendule1l=commande_pendule1;
 //printk("commande pendule 1 envoyé: %d\n",(int) commande_pendule1l);
 send(0x12,2,&commande_pendule1l);
@@ -87,27 +87,11 @@ rt_task_wait_period();
 
 
 void actuator_pendule2(long arg){
-float commande;
 int co=0;
+float commande=0.0;
 while(1){
-//float angle=valueToVoltagePolar(5, angle_pendule2);
-
-commande=valueToVoltagePolar(10, commande_pendule2);
-//printk("Commande = %dmv\n", (int)(commande*1000.0));
-commande=2.2*commande;
-printk("Hello");
-co=(int)(commande*10.0);
-printk("Hello2");
-if(co>98){
-            commande=9.8;
-}
-else if(co<-98){
-    commande=-9.8;
-}
+commande=valueToVoltagePolar(10,(int) commande_pendule2);
 SetDAVol(0,commande);
-/*SetDA(0,commande_pendule2);
-printk("Commande_Value=%d\n",commande_pendule2);*/
-
 rt_task_suspend (&actuator);
 }
 

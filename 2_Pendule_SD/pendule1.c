@@ -58,7 +58,7 @@ u16 valeur=0;
 void control_pendule2(long arg){
 u16 commande_pendule2l=0;
 while(1){
-commande_pendule2=(u16) VoltageToValue(commandeVoltage2(valueToVoltagePolar(5,angle_pendule2),valueToVoltagePolar(10,position_pendule2)));
+commande_pendule2=(u16) VoltageToValue(commandeVoltage2(valueToVoltagePolar(5,(int)angle_pendule2),valueToVoltagePolar(10,(int)position_pendule2)));
 commande_pendule2l=commande_pendule2;
 //printk("commande pendule 2 envoyé: %d\n",(int)commande_pendule2l );
 send(0x22,2,&commande_pendule2l);
@@ -77,33 +77,19 @@ envoie[0] = angle_pendule1;
 envoie[1] = position_pendule1;
 
 	send(0x10,4,&envoie);
-	printk("angule pendule 1 envoyé: %d\n",(int)(1000.0*valueToVoltagePolar(5,(int)angle_pendule1)) );
-	printk("position pendule 1 envoyé: %d\n",(int)(1000.0*valueToVoltagePolar(10,(int)position_pendule1)) );
+	//printk("angule pendule 1 envoyé: %d\n",(int)(1000.0*valueToVoltagePolar(5,(int)angle_pendule1)) );
+	//printk("position pendule 1 envoyé: %d\n",(int)(1000.0*valueToVoltagePolar(10,(int)position_pendule1)) );
 	rt_task_wait_period();
 }
 }
 
 void actuator_pendule1(long arg){
-float commande;
 int co=0;
+float commande=0.0;
 while(1){
 
 commande=valueToVoltagePolar(10, (int)commande_pendule1);
-//printk("Commande = %dmv\n", (int)(commande*1000.0));
-
-commande=0.75*commande;
-printk("Hello");
-co=(int)(commande*10.0);
-printk("Hello2");
-if(co>98){
-            commande=9.8;
-}
-else if(co<-98){
-    commande=-9.8;
-}
 SetDAVol(0,commande);
-/*SetDA(0,commande_pendule1);
-printk("Commande_Value=%d\n",commande_pendule1);*/
 rt_task_suspend (&actuator);
 }
 
@@ -114,7 +100,6 @@ void test4(void){
 	u16 adress[2];
     int id=0;
     int dlc=0;
-    u16 now;
 	//int status;
 	//int status=0;
 

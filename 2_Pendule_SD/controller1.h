@@ -8,12 +8,12 @@
 #include "3718.h"
 #include "3712.h"
 //Arcom21
-#define POSITION0 9.424
-#define POSITION90 -7.465
-#define ORIGIN 1.7446
-#define ANGLE_15 -4.378
-#define ANGLE15 3.35
-#define ANGLE0 -0.48
+#define POSITION0 8.84
+#define POSITION90 -8.04
+#define ORIGIN 0.267
+#define ANGLE_15 -4.416
+#define ANGLE15 3.33
+#define ANGLE0 -0.47
 #define ANGLE_WIDTH 30.0
 #define POSITION_WIDTH 90.5
 void   init_control1(float pposition0,float pposition90,float porigin, float pangle_15, float pangle15, float pangle0);
