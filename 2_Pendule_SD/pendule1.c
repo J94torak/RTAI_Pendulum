@@ -71,7 +71,7 @@ while(1){
 angle_pendule1 = acquisition_angle();
 position_pendule1 = acquisition_position();
 shift_pendules=acquisition_decalage();
-shift1(&position_pendule1, shift_pendules);
+shift2(&position_pendule1, shift_pendules);
 envoie[0] = angle_pendule1;
 envoie[1] = position_pendule1;
 
@@ -107,7 +107,7 @@ void lecture(void){
         angle_pendule2=adress[0];
          //printk("angle recue = %d mv\n",(int)(1000.0*valueToVoltagePolar(5,(int)adress[0])));
         position_pendule2=adress[1];
-        shift1(&position_pendule2, shift_pendules);
+        shift2(&position_pendule2, shift_pendules);
               //printk("pos recue = %d mv\n",(int)(1000.0*valueToVoltagePolar(10,(int)adress[1])));
         rt_task_resume(&control);//rtask_resume control
  	}
