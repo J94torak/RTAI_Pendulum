@@ -1,6 +1,6 @@
 #include "SJA1000.h"
 
-
+MODULE_LICENSE("GPL");
 void send(int id, int dlc, void* adress){
    	int i=0;
     u8 message[8];

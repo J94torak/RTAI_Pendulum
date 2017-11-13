@@ -8,6 +8,7 @@
 
 u16 acquisition_angle(void);
 u16 acquisition_position(void);
+u16 acquisition_decalage(void);
 int initsensor(void);
 
 #endif

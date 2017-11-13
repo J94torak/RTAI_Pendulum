@@ -43,16 +43,13 @@ static RT_TASK actuator;
 u16 angle_pendule1;
 u16 position_pendule1;
 u16 commande_pendule1;
+u16 decalage_origine1;
 
 u16 angle_pendule2;
 u16 position_pendule2;
 u16 commande_pendule2;
 
-
-
-RTIME now;
-
-u16 valeur=0;
+u16 shift_pendules;
 
 
 void control_pendule2(long arg){
@@ -73,6 +70,8 @@ u16 envoie[2];
 while(1){
 angle_pendule1 = acquisition_angle();
 position_pendule1 = acquisition_position();
+shift_pendules=acquisition_decalage();
+shift1(&position_pendule1, shift_pendules);
 envoie[0] = angle_pendule1;
 envoie[1] = position_pendule1;
 
@@ -84,34 +83,23 @@ envoie[1] = position_pendule1;
 }
 
 void actuator_pendule1(long arg){
-int co=0;
 float commande=0.0;
 while(1){
-
-commande=valueToVoltagePolar(10, (int)commande_pendule1);
-SetDAVol(0,commande);
-rt_task_suspend (&actuator);
+    commande=valueToVoltagePolar(10, (int)commande_pendule1);
+    SetDAVol(0,commande);
+    rt_task_suspend (&actuator);
 }
 
 }
 
-void test4(void){
+void lecture(void){
 	
 	u16 adress[2];
     int id=0;
     int dlc=0;
-	//int status;
-	//int status=0;
-
 	receive(&adress, &id,&dlc);
-	////printk("id=%d\n",id);
-	////printk("dlc=%d\n",dlc);
-	////printk("valeur recue = %d\n",adress[0]);
-
 	if(id==0x12 && dlc==2){
         commande_pendule1=adress[0];
-        	
-        //printk("commande adress 0 = %d\n",commande_pendule1);
         rt_task_resume(&actuator);//rtask_resume actuator
 		  
     }
@@ -119,6 +107,7 @@ void test4(void){
         angle_pendule2=adress[0];
          //printk("angle recue = %d mv\n",(int)(1000.0*valueToVoltagePolar(5,(int)adress[0])));
         position_pendule2=adress[1];
+        shift1(&position_pendule2, shift_pendules);
               //printk("pos recue = %d mv\n",(int)(1000.0*valueToVoltagePolar(10,(int)adress[1])));
         rt_task_resume(&control);//rtask_resume control
  	}
@@ -132,15 +121,15 @@ void test4(void){
 
 static int pendule1_init(void) {
 
-  int ierr_1,ierr_2,ierr_3,ierr_4;
-
+  int ierr_1,ierr_3,ierr_4;
+  RTIME now;
 
 
 
  
 	 /*mode interruption*/
 	rt_global_cli(); /* desactivation des IT */
-	rt_request_global_irq(IRQ,test4); /*installation du handler */                                           /* sur l'IT num_irq       */
+	rt_request_global_irq(IRQ,lecture); /*installation du handler */                                           /* sur l'IT num_irq       */
 	rt_startup_irq(IRQ); /* activation de la ligne d'interruption */
 	rt_global_sti(); /* re-activation des IT */
 	

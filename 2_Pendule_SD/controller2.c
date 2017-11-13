@@ -1,4 +1,4 @@
-#include "controller1.h"
+#include "controller2.h"
 
 MODULE_LICENSE("GPL");
 
@@ -97,7 +97,11 @@ float conversionVoltToPosition2(float position){
 }
 
 float commandeVoltage2(float angle, float position){
-return commande2(conversionVoltToAngle2(angle),conversionVoltToPosition1(position));
+return commande2(conversionVoltToAngle2(angle),conversionVoltToPosition2(position));
+}
+
+void shift2(u16 * valueToModify, u16 value){
+    *valueToModify=*valueToModify+2048-value;
 }
 
 
@@ -120,4 +124,4 @@ EXPORT_SYMBOL(commande2);
 EXPORT_SYMBOL(conversionVoltToAngle2);
 EXPORT_SYMBOL(conversionVoltToPosition2);
 EXPORT_SYMBOL(commandeVoltage2);
-
+EXPORT_SYMBOL(shift2);

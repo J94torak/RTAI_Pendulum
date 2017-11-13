@@ -48,8 +48,6 @@ u16 position_pendule2;
 u16 commande_pendule2;
 
 
-RTIME now;
-
 void control_pendule1(long arg){
 u16 commande_pendule1l=0;
 while(1){
@@ -87,7 +85,7 @@ rt_task_wait_period();
 
 
 void actuator_pendule2(long arg){
-int co=0;
+
 float commande=0.0;
 while(1){
 commande=valueToVoltagePolar(10,(int) commande_pendule2);
@@ -100,7 +98,7 @@ rt_task_suspend (&actuator);
 
 
 
-void test4(void){
+void lecture(void){
 	
 	u16 adress[2];
     int id=0;
@@ -134,11 +132,11 @@ void test4(void){
 
 static int pendule2_init(void) {
 
-  int ierr_1,ierr_2,ierr_3,ierr_4;
-  
+  int ierr_1,ierr_3,ierr_4;
+  RTIME now;
 	 /*mode interruption*/
 	rt_global_cli(); /* desactivation des IT */
-	rt_request_global_irq(IRQ,test4); /*installation du handler */                                           /* sur l'IT num_irq       */
+	rt_request_global_irq(IRQ,lecture); /*installation du handler */                                           /* sur l'IT num_irq       */
 	rt_startup_irq(IRQ); /* activation de la ligne d'interruption */
 	rt_global_sti(); /* re-activation des IT */
 	

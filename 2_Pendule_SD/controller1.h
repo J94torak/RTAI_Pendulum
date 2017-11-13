@@ -21,6 +21,7 @@ float commande1(float position, float angle);
 float conversionVoltToAngle1(float angle);
 float conversionVoltToPosition1(float position);
 float commandeVoltage1(float angle, float position);
+void shift1(u16 * valueToModify, u16 value);
 
 
 

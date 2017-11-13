@@ -1,8 +1,9 @@
 #include "sensor.h"
 MODULE_LICENSE("GPL");
 int initsensor(){
-		ADRangeSelect(0x00,RANGE_5);
+	ADRangeSelect(0x00,RANGE_5);
     ADRangeSelect(0x01,RANGE_10);
+    ADRangeSelect(0x02,RANGE_0__10);
 	  return 0;
 
 }
@@ -42,6 +43,26 @@ return voltage;
 
 }
 
+
+u16 acquisition_decalage(){
+
+    int i=0;
+u16 voltage=0;
+		if(SetChanel(0x02)!=0x00){
+      //printk("Position:OK\n");
+      }
+  else{
+      //printk("Position:NOK\n");
+      }
+while (i<2000){
+i++;}
+    voltage = ReadAD();
+    //printk("Position channel 1=%d\n",(unsigned int)voltage);
+return voltage;    
+    
+}
+
+
 static int init_sensor(void) {
   return initsensor();
 }
@@ -56,4 +77,5 @@ module_exit(exit_sensor);
 
 EXPORT_SYMBOL(acquisition_angle);
 EXPORT_SYMBOL(acquisition_position);
+EXPORT_SYMBOL(acquisition_decalage);
 
