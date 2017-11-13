@@ -16,6 +16,10 @@ int voltage=0;
   else
       printk("Angle:NOK\n");
       voltage = ReadAD();
+	while (i<2000){
+i++;
+
+}
     //printk("angle channel 0=%d\n",(unsigned int)voltage);
 return	valueToVoltagePolar(5, voltage);
 
