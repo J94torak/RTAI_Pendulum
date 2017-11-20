@@ -5,6 +5,16 @@
 #include<linux/module.h>
 #include<linux/init.h>
 
+/**
+ * \file 3718.c
+ * \brief 3718 module
+ * \author Jonathan Morell - Luiz Eduardo Di Britto
+ * \version 1.0
+ * \date 20.11.2017
+ *
+ * Module to use the 3718 card.
+ */
+
 
 #define BASE 0x320
 #define R0 BASE
@@ -30,12 +40,46 @@
 #define RANGE_0_1 10
 #define RANGE_0_01 11
 
+/**Init of 3712 card.
+*\return Return 0 if no problem occured.
+*/
 int init3718(void);
-int SetChanel(unsigned char);
-int ADRangeSelect(unsigned char,unsigned char);
+/**
+*Function to set a channel to read.
+*\param in_channel The channel to set.
+*\return Return 0 if the channel cannot be set.
+*/
+int SetChanel(unsigned char in_channel);
+/**
+*Function to set a range to a special channel.
+*\param channel The channel to set the range.
+*\param range The range to set.
+*\return Return -1 if the channel is above 9.
+*/
+int ADRangeSelect(unsigned char channel,unsigned char range);
+/**
+*Function to read value from the ADC card.
+*\return Value from 0 to 4095 corresponding of the voltage range.
+*/
 u16 ReadAD(void);
+/**
+*Function to read the current channel use from the ADC card.
+*\return The current channel used
+*/
 u8 ReadChannel(void);
+/**
+*Function that transform a value to a polar volage
+*\param vRef The polar voltage reference
+*\param value The value ton convert
+*\return Voltage corresponding to the value
+*/
 float valueToVoltagePolar(int vRef, int value);
+/**
+*Function that transform a value to a unipolar volage
+*\param vRef The unipolar voltage reference
+*\param value The value ton convert
+*\return Voltage corresponding to the value
+*/
 float valueToVoltageUniPolar(int vRef, int value);
 
 #endif

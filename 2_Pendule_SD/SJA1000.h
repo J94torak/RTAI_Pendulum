@@ -6,8 +6,6 @@
 
 #include <asm/io.h>
 #include <asm/irq.h>
-#include <rtai.h>
-#include <rtai_sched.h>
 
 
 
